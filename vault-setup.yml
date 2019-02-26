@@ -1,0 +1,30 @@
+# Consul/Vault playbook
+
+- name: Create vault user and ensure vault/consul dir creation
+  hosts: vault-consul, consul-agent, consul-server
+  roles:
+    - vault-user
+    - vault-consul-dirs
+
+- name: Ensure vault binary exists
+  hosts: vault-consul
+  roles:
+    - vault-package
+
+- name: Configure and reload systemd for consul-server
+  hosts: consul-server
+  roles:
+    - consul-package
+    - systemd-config-consul-server
+    - consul-join-servers
+
+- name: Configure and reload systemd for consul-agent
+  hosts: consul-agent
+  roles:
+    - consul-package
+    - systemd-config-consul-agent
+
+- name: Configure and reload systemd for vault
+  hosts: vault-consul
+  roles:
+    - systemd-config-vault

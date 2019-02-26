@@ -1,0 +1,16 @@
+---
+- name: Create /home/vault/vault-server/vault.d directory
+  file: path=/home/vault/vault-server/vault.d owner=vault group=vault mode=0775 state=directory
+
+- name: Create /home/vault/consul directory structure
+  file: path=/home/vault/consul/{{ item }} owner=vault group=vault mode=0775 state=directory
+  with_items:
+    - consul.d
+    - consul-server-data
+    - consul-agent-data
+
+- name: Create /home/vault/consul/consul.d directory structure
+  file: path=/home/vault/consul/consul.d/{{ item }} owner=vault group=vault mode=0775 state=directory
+  with_items:
+    - agent
+    - server

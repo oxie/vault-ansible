@@ -1,0 +1,26 @@
+---
+- name: Generate Consul agent unit file from template
+  template:
+    src: consul-agent.service.j2
+    dest: /lib/systemd/system/consul-agent.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd to pick up the new unit files
+  command: systemctl daemon-reload
+
+- name: Generate consul agent configuration from template
+  template:
+    src: consul-agent.json.j2
+    dest: /home/vault/consul/consul.d/agent/consul-agent.json
+    owner: vault
+    group: vault
+    mode: 0644
+  notify: start consul agent
+
+- name: Ensure consul agent is started
+  service:
+      name: consul-agent
+      state: started
+      enabled: yes

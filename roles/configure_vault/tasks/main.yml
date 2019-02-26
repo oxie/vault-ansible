@@ -1,0 +1,65 @@
+---
+
+- name: Tweak-TTL
+  environment:
+    VAULT_ADDR: "http://0.0.0.0:8200"
+  shell: './vault-server/vault mount-tune -tls-skip-verify -max-lease-ttl=876000h auth/token'
+  become: true
+  become_user: vault
+
+- name: Update-policy-within-Vault
+  uri:
+    url: http:/xxxxxxxxxxxxxxxxxxxxxx:8200/v1/sys/policy/default
+    method: PUT
+    body: "{{ lookup('file','update-policy-within-vault') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-Vault-Token: "{{ token }}"
+    status_code: 204
+
+- name: Generating-Schema-read-only-Policy
+  uri:
+    url: http://xxxxxxxxxxxxxxxxxxxxxx:8200/v1/sys/policy/{{ schemaPolicyName }}
+    method: PUT
+    body: "{{ lookup('file','schema-ro-policy') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-Vault-Token: "{{ token }}"
+    status_code: 204
+
+- name: Generating-Application-read-update-create-Policy
+  uri:
+    url: http://xxxxxxxxxxxxxxxxxxxxxx:8200/v1/sys/policy/{{ applicationPolicyName }}
+    method: PUT
+    body: "{{ lookup('file','application-policy') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-Vault-Token: "{{ token }}"
+    status_code: 204
+
+- name: Generating-Schema-Token #add Capture here and report back.
+  uri:
+    url: http://xxxxxxxxxxxxxxxxxxxxxx:8200/v1/auth/token/create
+    method: PUT
+    body: { "display_name": "{{ item }}","ttl": "876000h","renewable": "true","policies": ["{{ item }}"]}
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-Vault-Token: "{{ token }}"
+  with_items:
+    - "{{ schemaPolicyName }}"
+    - "{{ applicationPolicyName }}"
+  register: tokens
+
+- name: print var again
+  debug: var={{ item }}
+  with_items: 
+    - "{{ tokens|json_query('results[0].item') }}"
+    - "{{ tokens|json_query('results[0].json.auth.accessor') }}"
+    - "{{ tokens|json_query('results[0].json.auth.client_token') }}"
+    - "{{ tokens|json_query('results[1].item') }}"
+    - "{{ tokens|json_query('results[1].json.auth.accessor') }}"
+    - "{{ tokens|json_query('results[1].json.auth.client_token') }}"

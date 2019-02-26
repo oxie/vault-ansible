@@ -1,0 +1,11 @@
+- name: Initializing Vault
+  environment:
+    VAULT_ADDR: "http://0.0.0.0:8200"
+  shell: "./vault-server/vault init | grep -E 'Unseal|Initial' >> /home/vault/shards-and-token.txt"
+  become: true
+  become_user: vault
+  become_method: sudo  
+  register: tokens
+
+- name: Print Vars
+  debug: var=tokens.stdout_lines

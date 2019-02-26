@@ -1,0 +1,7 @@
+---
+- name: Consul join servers in a cluster
+  command: /home/vault/consul/consul join {{ groups['consul-server']|join(' ') }}
+  when: consul_join_servers == true
+  #run_once: true
+  #when: {{ consul-create-cluster }} is defined and {{ consul-create-cluster }} == true
+  #with_items: {{groups['consul-server']|join(" ")}}

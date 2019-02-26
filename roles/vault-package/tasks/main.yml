@@ -1,0 +1,8 @@
+---
+- name: unarchive vault package on destination
+  unarchive:
+    src: vault_0.8.3_linux_amd64.zip
+    dest: /home/vault/vault-server
+    owner: vault
+    group: vault
+    mode: 0755

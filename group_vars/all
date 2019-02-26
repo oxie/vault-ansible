@@ -1,0 +1,19 @@
+vault_group: vault
+vault_group_gid: 4000
+vault_user: vault
+vault_user_uid: 4000
+
+# Consul servers list
+consulserver1: "xxxxxxxxxxxxxxxxxxxx"
+consulserver2: "xxxxxxxxxxxxxxxxxxxxxx"
+
+# Set Vault address
+vault_address: "xxxxxxxxxxxxxxxxxxxxxx"
+
+consul-create-cluster: true
+consul_join_servers: true
+
+token: xxxxxxxx-xxxx-xxxx-xxxxxxxx 
+
+schemaPolicyName: policy-schema
+applicationPolicyName: policy-application

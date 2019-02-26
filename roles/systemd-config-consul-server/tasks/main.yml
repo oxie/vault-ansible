@@ -1,0 +1,26 @@
+---
+- name: Generate Consul server unit file from template
+  template:
+    src: consul-server.service.j2
+    dest: /lib/systemd/system/consul-server.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd to pick up the new unit files
+  command: systemctl daemon-reload
+
+- name: Copy consul server configuration
+  copy:
+    src: files/consul-server.json
+    dest: /home/vault/consul/consul.d/server
+    owner: vault
+    group: vault
+    mode: 0644
+  notify: reload consul server
+
+- name: Ensure consul server is started
+  service:
+    name: consul-server
+    state: started
+    enabled: yes

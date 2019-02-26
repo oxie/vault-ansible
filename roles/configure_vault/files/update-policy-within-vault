@@ -1,0 +1,3 @@
+{
+    "rules": "path \"auth/token/lookup-self\" {\n    capabilities = [\"read\"]\n}\n\npath \"sys/capabilities-self\" {\n    capabilities = [\"update\"]\n}\n\npath \"auth/token/renew-self\" {\n    capabilities = [\"update\"]\n}\n\npath \"sys/renew*\" {\n    capabilities = [\"update\"]\n}"
+}

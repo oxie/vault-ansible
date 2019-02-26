@@ -1,0 +1,20 @@
+---
+- name: Create Vault unit file
+  copy:
+    src: files/vault.service
+    dest: /lib/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd to pick up the new unit files
+  command: systemctl daemon-reload
+
+- name: Generate vault conf
+  template:
+    src: vault.conf.j2
+    dest: /home/vault/vault-server/vault.d/vault.conf
+    owner: vault
+    group: vault
+    mode: 0644
+  notify: restart vault server

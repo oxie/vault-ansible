@@ -1,0 +1,13 @@
+# Vienna hosts for consul and vault
+
+[vault-consul]
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh
+
+[consul-server]
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh
+
+[consul-agent]
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh
+xxxxxxxxxxxxxxxxxxxxxx ansible_user=etodorov ansible_connection=ssh

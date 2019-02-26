@@ -1,0 +1,12 @@
+{
+  "data_dir": "/home/vault/consul/consul-agent-data",
+  "log_level": "INFO",
+  "server": false,
+  "disable_update_check": true,
+  "leave_on_terminate": true,
+  "client_addr": "0.0.0.0",
+  "start_join": [
+    "{{ groups['consul-server']|join('", "') }}"
+  ],
+  "syslog_facility": "LOCAL0"
+}

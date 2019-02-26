@@ -1,0 +1,11 @@
+---
+- name: start consul server
+  service:
+      name: consul-server
+      state: started
+      enabled: yes
+
+- name: reload consul server
+  service:
+      name: consul-server
+      state: reloaded

@@ -1,0 +1,6 @@
+---
+- name: Create vault group
+  group: name={{ vault_group }} gid={{ vault_group_gid }} state=present
+
+- name: Create vault user
+  user: name={{ vault_user }} comment="vault user" uid={{ vault_user_uid }} group={{ vault_group }} groups={{ vault_group }} createhome=yes state=present

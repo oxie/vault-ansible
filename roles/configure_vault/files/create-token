@@ -1,0 +1,6 @@
+{
+     "display_name": "{{ item }}",
+     "ttl": "876000h",
+     "renewable": true,
+     "policies": ["{{ item }}"]
+}

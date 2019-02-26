@@ -1,0 +1,18 @@
+; Consul server systemd unit
+
+[Unit]
+Description=consul server
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User=vault
+;EnvironmentFile=-/etc/sysconfig/consul
+Environment=GOMAXPROCS=2
+Restart=on-failure
+ExecStart=/home/vault/consul/consul agent -server $OPTIONS -config-dir=/home/vault/consul/consul.d/server -bind={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+---
+# "find a way to use registered vaulues to unseal vault"
+- name: Unseal Vault
+  shell: './vault-server/vault unseal'
+  become: true
+  become_user: vault

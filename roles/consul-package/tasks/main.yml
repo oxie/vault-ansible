@@ -1,0 +1,8 @@
+---
+- name: unarchive consul package on destination
+  unarchive:
+    src: consul_0.7.2_linux_amd64.zip
+    dest: /home/vault/consul
+    owner: vault
+    group: vault
+    mode: 0755

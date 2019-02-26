@@ -1,0 +1,9 @@
+{
+  "bootstrap_expect": 2,
+  "acl_datacenter": "dc1",
+  "acl_default_policy":"allow",
+  "acl_down_policy":"allow",
+  "server": true,
+  "disable_update_check": true,
+  "data_dir": "/home/vault/consul/consul-server-data"
+}

@@ -1,0 +1,16 @@
+# MTL Vault Configuration playbook
+
+- name: Initialize Vault
+  hosts: "{{ hostvars[groups['vault-consul'][0].ansible_host }}"
+  roles:
+    - initialize_vault
+
+- name: Unlock Vault
+  hosts: "{{ hostvars[groups['vault-consul'][0].ansible_host }}"
+  roles:
+    - unlock_vault
+
+- name: Configure Vault
+  hosts: "{{ hostvars[groups['vault-consul'][0].ansible_host }}"
+  roles: 
+    - configure_vault

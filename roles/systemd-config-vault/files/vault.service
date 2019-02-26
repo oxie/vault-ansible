@@ -1,0 +1,21 @@
+; Vault init file
+
+[Unit]
+Description=Vault
+Requires=network.target
+After=network.target
+
+[Service]
+;Environment=VAULT_ADDR=http://0.0.0.0:8200
+Type=simple
+WorkingDirectory=/home/vault/vault-server/
+User=vault
+Restart=on-failure
+ExecStart=/home/vault/vault-server/vault server -config=/home/vault/vault-server/vault.d/vault.conf
+KillSignal=SIGINT
+TimeoutStopSec=30s
+StartLimitInterval=60s
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

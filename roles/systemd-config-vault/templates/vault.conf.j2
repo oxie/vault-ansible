@@ -1,0 +1,16 @@
+backend "consul" {
+  path = "secret/"
+  scheme = "http"
+  address = "127.0.0.1:8500"
+  redirect_addr = "{{ vault_address }}"
+  cluster_addr = "{{ vault_address }}"
+  disable_clustering = "false"
+}
+
+listener "tcp" {
+  cluster_address = "0.0.0.0:8200"
+  tls_disable = 1
+}
+
+disable_mlock = true
+cluster_name = "vault-cluster"
